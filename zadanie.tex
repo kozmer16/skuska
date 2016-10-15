@@ -1,11 +1,13 @@
-
-\documentclass[10pt]{article}
+\documentclass[6pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
-\usepackage{arial}
+\usepackage{tgpagella}
 \usepackage{fancyhdr}
-
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt} 
+\rhead{\scriptsize{\textbf{An Approach to Intelligent Interactive Social Network Geo-Mapping}}}
 
 \begin{document}
 \title{\bf \Large An Approach to Intelligent Interactive Social Network Geo-Mapping \normalsize \rm}
@@ -20,30 +22,25 @@ Ilkovičova 3, 842 16 Bratislava, Slovakia\\
 {name.surname}@stuba.sk\\
 \end{center}
 
-\begin{description}
- \item \bf Abstarct. \rm Map-based visualization of different kinds of information, which can be geo-coded to a particular location, becomes more and more popular, as it is very well accepted and understood by end-users. However, a simple map interface is not enough if we aim to provide information about objects coming from vast and dynamic information spaces such as the Web or social networks are. In this paper, we propose a novel method for intelligent visualization of generic objects within a map interface called IntelliView, based on an extensive evaluation and ranking of objects including both content and collaborative-based approaches. We describe the method implementation in a web-based application called Present, which is aimed at recycling items in social networks together with an experiment aimed at evaluation of proposed approach.
-\end{description}
-\begin{description}
-\item \bf Keywords: \rm social network, content filtering, map, personalization, visualization
-\end{description} 
 
 
+\bf \abstractname \rm { Map-based visualization of different kinds of information, which can be geo-coded to a particular location, becomes more and more popular, as it is very well accepted and understood by end-users. However, a simple map interface is not enough if we aim to provide information about objects coming from vast and dynamic information spaces such as the Web or social networks are. In this paper, we propose a novel method for intelligent visualization of generic objects within a map interface called IntelliView, based on an extensive evaluation and ranking of objects including both content and collaborative-based approaches. We describe the method implementation in a web-based application called Present, which is aimed at recycling items in social networks together with an experiment aimed at evaluation of proposed approach.}
+ 
 \section{Introduction and Related Work}
 Intelligent presentation of data and information on the Web, including personalization is becoming crucial as the amount of available information increases in an incredible pace while the information is getting inter-connected in various different ways. It is becoming harder and harder to navigate in such a tangle of information resources of various kinds, origin and quality.
 
 Special kind of information, which is gaining popularity nowadays, is information coming from social networks. Visualization of social networks is often realized in a form of complicated graphs that are hard to read and navigate in. Other approach is to use text interfaces to provide information about events happening within a social network. Neither of these approaches can keep pace with dynamics of social network and does not scale well as the size of the social network grows as well as the amount of information within it.
 
-Most of the well-known approaches to social network visualization are not targeted at end-users, but rather on researchers or analysts, providing them with a quick
-overview of a social network and means for further statistical analysis and sociological research [7]1.
+Most of the well-known approaches to social network visualization are not targeted at end-users, but rather on researchers or analysts, providing them with a quick overview of a social network and means for further statistical analysis and sociological research \cite{yang2008visual}.
 
 
 
 
-An example of a system, which is devoted to be used by end-users, is Viszter [2]. It visualizes a social network in a force-directed network layout. It focuses on using different visualization techniques to improve the navigation and search experience, but does not include any kind of content filtering or personalization, which would help to reduce the size of displayed network.
+An example of a system, which is devoted to be used by end-users, is Viszter \cite{heer2005vizster}. It visualizes a social network in a force-directed network layout. It focuses on using different visualization techniques to improve the navigation and search experience, but does not include any kind of content filtering or personalization, which would help to reduce the size of displayed network.
 
 We decided to tackle the issue by realizing an intelligent map interface support for social networks visualization. A map, forming a basis of the visualization is a well known concept providing a basic level of information space partitioning based on geographical location. Location is often basic attribute of people or things involved in the social network. Another important partitioning is obtained by intelligent evaluation of social network, which partition the whole graph into several layers of abstraction and thus preventing the information overload problem.
 
-There are many production-grade solutions based on map visualization, usually built on top of big online map services providers such as Google Maps or Microsoft Bing Maps. The system Geotracker [1] is interesting from our point of view, as it, apart from using the map interface to visualize geotagged RSS content, provides also a possibility to visualize development of the information space over time, which is similar to our idea of RealView described in this paper. Moreover, it contains basic user’s interests model mapped to content categories, which is used for the personalization of the presentation layer.
+There are many production-grade solutions based on map visualization, usually built on top of big online map services providers such as Google Maps or Microsoft Bing Maps. The system Geotracker \cite{chen2007geotracker} is interesting from our point of view, as it, apart from using the map interface to visualize geotagged RSS content, provides also a possibility to visualize development of the information space over time, which is similar to our idea of RealView described in this paper. Moreover, it contains basic user’s interests model mapped to content categories, which is used for the personalization of the presentation layer.
 
 In order to capture the dynamics of social networks, we also visualize important events and interactions. These are fully adapted to a user, to give him an overview of what happened since his last visit and to provide him with real-time updates as they happen.
 
@@ -99,7 +96,10 @@ The equation also features a distribution function d that is an integral part of
 
 The equation takes besides the input value two more parameters, which are constant throughout one iteration on a set of objects. The median(X) is a median value of the set of object parameters and the value a defines how sharp will be the edge between relaxed parts of the function and the steep part. The difference is shown in Figure 1, where both have the median of 100, the function in Figure 1a has a=pi/2 and the function in Figure 1b has a=4pi.
 
-
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{images/fig.jpg}
+\caption{Distribution function with (a) a=pi/2, (b) a=4pi.}
+\end{figure}
 
 \subsection{Personal Object Significance}
 The purpose of the personal object significance value is to encourage objects that the user might have interest in. The equation is as follows:
@@ -120,9 +120,10 @@ The top keyword rank works in a similar way to the category rank with the differ
 
 \subsection{Collaborative Object Significance}
 
-Collaborative component of the evaluation function takes into account interests and activities not only of the user that the evaluation is meant for, but also users similar to him. Similar user is a fuser who has an interest in the same object categories and/or searches for the same keywords. As we are working with graph-like structures, we can take advantage of graph-based algorithms such as spreading activation [4], HITS [5] or PageRank [6] to find and rank similar and related users or objects.
+Collaborative component of the evaluation function takes into account interests and activities not only of the user that the evaluation is meant for, but also users similar to him. Similar user is a fuser who has an interest in the same object categories and/or searches for the same keywords. As we are working with graph-like structures, we can take advantage of graph-based algorithms such as spreading activation \cite{berthold2008supporting}, HITS \cite{mining2006exploring} or PageRank \cite{page1999pagerank} to find and rank similar and related users or objects.
 
 When we find such a user, we assume that objects of his interest might be of interest to the current user as well. The evaluation is done in a similar way as the previous two components taking into account the level of similarity of the two users and the trustfulness of the similar user given by his rating.
+
 \section{Content Visualization}
 \label{3}
 
@@ -131,7 +132,6 @@ When we find such a user, we assume that objects of his interest might be of int
 Due to enormous number of objects to be displayed, IntelliView has to choose only a small subset of them in order to maintain a lucid view. To accomplish this, objects are sorted by priority – a number that comes from the object evaluation described in the section 2. Prioritization is reflected by the most common visualization techniques that can be found in Bing Maps, Google maps or in a well-known ESRI’s geographic information system (GIS) software products.
 
 With the list of objects sorted by priority, IntelliView aims to achieve the following basic goals:
-
 \begin{itemize}
 \item{displaying as much information as possible,}
 \item{displaying objects with higher priority first,}
@@ -152,6 +152,11 @@ The second method tries to achieve greater accuracy of displaying priority by di
 However, in this case, location of item cannot be determined due to an error caused by the centralization within cell. The goal of centralization is to avoid collision
 problems on neighboring cell's bounds. As a positive side effect, due to uniform distribution of items on the map, this view is symmetric and more readable, but it may appear a bit artificial because of that. Finally, we abandoned this method due to its unattractiveness for users.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{images/fig3.jpg}
+\caption{Personalized visualization of IntelliView}
+\end{figure}
 
 \section{Real-time Visualization of Social Network Dynamics}
 \label{4}
@@ -176,7 +181,10 @@ The second algorithm is a simplification of the first one. It stores only one, m
 \section{Evaluation}
 In order to evaluate our approach to intelligent information visualization, we developed a web-based system called Present, which aims to help preventing precious nature resources by supporting re-use of ordinary goods and items instead of their endless production (see Figure 3). This is done by providing people with efficient means for donating or lending items, which are functional, but not used any more, and on the other side for requesting such donations or lendings.
 
-
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{images/fig4.jpg}
+\caption{Present – introduction screen.}
+\end{figure}
 
 Present is strongly connected to existing social networks such as Facebook, which play a crucial role not only in spreading the information about the system to new users, but also in providing a continuous motivation to use the system. This is achieved also by posting automatic updates to user's wall including photos of things he has provided, things he has borrowed or lent, events he has done, etc. and regular updates with user statistics, social impact information and posts about successful stories.
 
@@ -186,30 +194,26 @@ In order to evaluate the proposed approach, we filled the Present with artificia
 
 This way we were able to generate 2.7 million of virtual users placed on a map by following population density on our Earth. The system was running smoothly on an average personal computer in the role of a server even with such a great number of objects to be processed and displayed, which proves that the solution can be deployed in real-world conditions. Moreover, the real-world deployment could take advantage of cloud computing to distribute and handle the load.
 
-Apart from basic evaluation of technical viability of the approach, we conducted a user-study with 25 volunteers, which were asked to use the system and provide us with feedback by filling-in a questionnaire. The majority of participants (76) were attracted by the map interface immediately and 60 of them expressed that they were feeling comfortable when navigating on the map and found the layout of objects on the top of the map very well arranged (see fig4).
+Apart from basic evaluation of technical viability of the approach, we conducted a user-study with 25 volunteers, which were asked to use the system and provide us with feedback by filling-in a questionnaire. The majority of participants (76) were attracted by the map interface immediately and 60 of them expressed that they were feeling comfortable when navigating on the map and found the layout of objects on the top of the map very well arranged (see \ref{fig4}).
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{images/fig5.jpg}
+\caption{Opinions of participants on the items and actions visualization on the screen and navigation among them.}
+\label{fig4}
+\end{figure}
 
 \section{Conclusion}
-In this paper we presented a novel approach to visualization of large amounts of geo-coded and dynamic information, which can be nowadays found in social networks. Social data are getting more and more interest, as the Social Web spreads outside the
- environment of the isolated "social" applications and becomes a ubiquitous part of the ordinary Web. Traditional web-based information systems must take this into account and incorporate intelligent approaches in order to provide their users with the most relevant results while prevent information overload.
+In this paper we presented a novel approach to visualization of large amounts of geo-coded and dynamic information, which can be nowadays found in social networks. Social data are getting more and more interest, as the Social Web spreads outside the environment of the isolated "social" applications and becomes a ubiquitous part of the ordinary Web. Traditional web-based information systems must take this into account and incorporate intelligent approaches in order to provide their users with the most relevant results while prevent information overload.
 
 This is what we aimed at by our approach to information space visualization based on the intelligent map interface, which takes into account usage data of an individual as well as all users of system to determine user interests expressing what kind of content is relevant for the user and layout the content on the top of the map appropriately.
 
 We evaluated the approach on the web-based system Present, which was filled with non-trivial amount of data and evaluated within a user study. The results showed that the chosen visualization paradigm combined with the intelligent processing behind it provides an efficient means for personalized navigation within vast information spaces.
 
 \begin{description}
-\item \bf Acknowledgement. \rm This work was partially supported by the grants VG1/0508/09, APVV-0208-10 and it is the partial result of the Research \& Development Operational Programme for the project Support of Center of Excellence for Smart Technologies, Systems and Services II, ITMS 26240120029, co-funded by the ERDF.
+ \item  \bf Acknowledgement. \rm This work was partially supported by the grants VG1/0508/09, APVV-0208-10 and it is the partial result of the Research \& Development Operational Programme for the project Support of Center of Excellence for Smart Technologies, Systems and Services II, ITMS 26240120029, co-funded by the ERDF.
 \end{description}
 
-\bf References \rm
-
-\begin{enumerate}
-\item Gibbon, D. et al.: GeoTracker: Geospatial and Temporal RSS Navigation. In: Proc. of WWW 2007, ACM Press, (2007), Banff, Canada, pp. 41–50
-\item Heer J., Boyd, D.: Vizster: Visualizing Online Social Networks. In IEEE Symposium on Information Visualization INFOVIS'05, IEEE Press (2005), pp. 33-40.
-\item MacEachren, Alan M.: How maps work: representation, visualization, and design. The Guilford Press, (2004).~\item Crestani F.: Application of spreading activation techniques in information retrieval. In: Artif. Intell. Rev., Springer, (2004), pp. 453–482.
-\item Liu, B.: Web Data Mining: Exploring Hyperlinks, Contents, and Usage Data (Data-Centric Systems and Applications). Springer-Verlag, New York, NJ, USA, (2006).
-\item Page, L., Brin, S., Motwani, R., Winograd T.: The PageRank citation ranking: Bringing order to the web. In: Proc. of the 7th International World Wide Web Conference, Brisbane, Australia, (1998), pp. 161–172.
-\item Yang, X., Asur, S., Parthasarathy, S., Mehta, S: A visual-analytic toolkit for dynamic interaction graphs. In: Proc. of the 14th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining KDD '08. ACM, New York, NY, USA, (2008), pp.1016-1024.
-\end{enumerate}
+\bibliographystyle{plain}
+\bibliography{zdroje}
 
 
 \end{document}
